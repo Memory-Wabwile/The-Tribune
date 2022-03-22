@@ -37,7 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'news.apps.NewsConfig',
+    'news.apps.NewsConfig',  #this will allow the projects configurations to be reflected also in our app
 ]
 
 MIDDLEWARE = [
