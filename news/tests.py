@@ -17,3 +17,35 @@ class EditorTestClass(TestCase):
         self.james.save_editor()
         editors = Editor.objects.all()
         self.assertTrue(len(editors) > 0)
+
+
+class ArticleTestClass(TestCase):
+
+    def setUp(self):
+        # Creating a new editor and saving it
+        self.james= Editor(first_name = 'James', last_name ='Muriuki', email ='james@moringaschool.com')
+        self.james.save_editor()
+
+        # Creating a new tag and saving it
+        self.new_tag = tags(name = 'testing')
+        self.new_tag.save()
+
+        self.new_article= Article(title = 'Test Article',post = 'This is a random test Post',editor = self.james)
+        self.new_article.save()
+
+        self.new_article.tags.add(self.new_tag)
+
+    def tearDown(self):
+        '''
+        method that will allow us to delete all instances of our models from the database after each test.
+        '''
+        Editor.objects.all().delete()
+        tags.objects.all().delete()
+        Article.objects.all().delete()
+
+    def test_get_news_today(self):
+        '''
+        method that will allow us to get today's news.
+        '''
+        today_news = Article.todays_news()
+        self.assertTrue(len(today_news)>0)
