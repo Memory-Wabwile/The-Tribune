@@ -2,6 +2,7 @@ from django.shortcuts import render,redirect
 from django.http  import HttpResponse,Http404
 import datetime as dt
 from .models import Article
+from django.core.exceptions import ObjectDoesNotExist
 
 # Create your views here.
 def welcome(request):
@@ -78,6 +79,6 @@ def search_results(request):
 def article(request,article_id):
     try:
         article = Article.objects.get(id = article_id)
-    except DoesNotExist:
+    except ObjectDoesNotExist:
         raise Http404()
     return render(request,"all-news/article.html", {"article":article})
